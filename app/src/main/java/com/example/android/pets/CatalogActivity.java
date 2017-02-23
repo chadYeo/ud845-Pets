@@ -91,16 +91,25 @@ public class CatalogActivity extends AppCompatActivity {
 
         try {
             displayView.setText("Number of rows in pets database table: " + cursor.getCount() + " pets. \n\n");
-            displayView.append(PetEntry._ID + " - " + PetEntry.COLUMN_PET_NAME + "\n");
+            displayView.append(PetEntry._ID + " - " + PetEntry.COLUMN_PET_NAME + " - "
+                    + PetEntry.COLUMN_BREED + " - " + PetEntry.COLUMN_PET_GENDER + " - "
+                    + PetEntry.COLUMN_PET_WEIGHT + "\n");
 
             int idColumnIndex = cursor.getColumnIndex(PetEntry._ID);
             int nameColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_NAME);
+            int breedColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_BREED);
+            int genderColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_GENDER);
+            int weightColumnIndex = cursor.getColumnIndex(PetEntry.COLUMN_PET_WEIGHT);
 
             while (cursor.moveToNext()) {
                 int currentID = cursor.getInt(idColumnIndex);
                 String currentName = cursor.getString(nameColumnIndex);
+                String currentBreed = cursor.getString(breedColumnIndex);
+                String currentGender = cursor.getString(genderColumnIndex);
+                int currentWeight = cursor.getInt(weightColumnIndex);
 
-                displayView.append(("\n" + currentID + " - " + currentName));
+                displayView.append(("\n" + currentID + " - " + currentName + " - " + currentBreed
+                        + " - " + currentGender + " - " + currentWeight));
             }
 
         } finally {
