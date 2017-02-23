@@ -116,7 +116,7 @@ public class CatalogActivity extends AppCompatActivity {
             cursor.close();
         }
     }
-
+    // InsertPet
     private void insertPet() {
 
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
