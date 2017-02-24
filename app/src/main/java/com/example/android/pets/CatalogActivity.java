@@ -28,7 +28,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.example.android.pets.data.PetContract;
 import com.example.android.pets.data.PetContract.PetEntry;
 import com.example.android.pets.data.PetDbHelper;
 
@@ -37,7 +36,10 @@ import com.example.android.pets.data.PetDbHelper;
  */
 public class CatalogActivity extends AppCompatActivity {
 
+    private static final String LOG_TAG = CatalogActivity.class.getSimpleName();
+
     private PetDbHelper mDbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +112,9 @@ public class CatalogActivity extends AppCompatActivity {
 
                 displayView.append(("\n" + currentID + " - " + currentName + " - " + currentBreed
                         + " - " + currentGender + " - " + currentWeight));
+
+                Log.i(LOG_TAG, "\n" + currentID + " - " + currentName + " - " + currentBreed
+                        + " - " + currentGender + " - " + currentWeight);
             }
 
         } finally {
