@@ -19,7 +19,7 @@ public class PetContract {
         public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_PETS);
 
         public static final String TABLE_NAME = "pets";
-        public static final String COLUMN_ID = "BaseColumns._ID";
+        public static final String _ID = "BaseColumns._ID";
         public static final String COLUMN_PET_NAME = "name";
         public static final String COLUMN_BREED = "breed";
         public static final String COLUMN_PET_GENDER = "gender";
