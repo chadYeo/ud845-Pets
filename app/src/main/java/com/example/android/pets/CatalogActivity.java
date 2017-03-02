@@ -31,7 +31,6 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.example.android.pets.data.PetContract.PetEntry;
-import com.example.android.pets.data.PetCursorAdapter;
 
 /**
  * Displays list of pets that were entered and stored in the app.
