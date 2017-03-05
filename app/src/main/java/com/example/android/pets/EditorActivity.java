@@ -218,6 +218,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     public void onBackPressed() {
         if (!mPetHasChanged) {
             super.onBackPressed();
+            return;
         }
         DialogInterface.OnClickListener discardButtonClickListener =
                 new DialogInterface.OnClickListener() {
