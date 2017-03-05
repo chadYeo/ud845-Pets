@@ -73,6 +73,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         if (mCurrentUri == null) {
             setTitle(R.string.editor_activity_title_new_pet);
+            invalidateOptionsMenu();
         } else {
             setTitle(getString(R.string.editor_activity_title_edit_pet));
             getLoaderManager().initLoader(EXISTING_PET_LOADER, null, this);
@@ -175,6 +176,16 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        if (mCurrentUri == null) {
+            MenuItem menuItem = menu.findItem(R.id.action_delete);
+            menuItem.setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
@@ -182,6 +193,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 finish();
                 return true;
             case R.id.action_delete:
+                showDeleteConfirmationDialog();
                 return true;
             case android.R.id.home:
                 if (!mPetHasChanged) {
@@ -291,5 +303,42 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    private void showDeleteConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                deletePet();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void deletePet() {
+        if (mCurrentUri != null) {
+            int mRowsDeleted = getContentResolver().delete(mCurrentUri, null, null);
+
+            if (mRowsDeleted == 0) {
+                Toast.makeText(this, getString(R.string.editor_delete_pet_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, getString(R.string.editor_delete_pet_successful),
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+
+        finish();
     }
 }
